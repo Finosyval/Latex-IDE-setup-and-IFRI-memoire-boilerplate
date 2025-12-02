@@ -1,0 +1,100 @@
+\chapter*{Annexe}\addcontentsline{toc}{chapter}{Annexe}\label{annexe1}
+
+\subsection*{Étapes clés du déroulement de l'attaque}
+
+
+Nous allons exploiter quelques failles de ce réseau pour effectuer une attaque man in the middle (MITM).\\
+
+Au début, notre machine Windows peut atteindre normalement le routeur R4.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.8]{images/ping_b4_1}
+    \caption{Ping vers le routeur R4 avec succès}
+    \label{fig:ping_b4_1}
+\end{figure}
+Quand on essaie de tracer le chemin vers R4, on constate que la machine passe par le routeur R1 légitime du lien pour atteindre R4
+\begin{figure}[H]
+    \centering
+    \includegraphics{images/tracert_b4_1}
+    \caption{Traces du chemin vers R4}
+    \label{fig:tracert_b41}
+\end{figure}
+L'attaquant sur le lien peut alors passer a l'attaque.
+Pour effectuer l'attaque MITM on utilisera l'outil fake\_router6, un utilitaire du package d'outils \textbf{the hacker choice}.
+Ainsi sur la machine d'attaque, on active en un premier lieu le forwarding pour être transparent et ne pas bloquer le transit des paquets.
+\begin{figure}[H]
+    \centering
+    \includegraphics{images/attk/fwrd_activation}
+    \caption{Activation du forwarding des paquets.}
+    \label{fig:activ_fwrd}
+\end{figure}
+Aussi on lance wireshark pour observer le trafic des paquets sur notre interface dans le réseau.\\
+-------\\
+Puisque tout est prêt nous allons lancer l'attaque.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.8]{images/attk/lancement_attk_1}
+    \caption{Initialisation de l'attaque}
+    \label{fig:attk_init_1}
+\end{figure}
+
+L'attaque est en cours et l'attaquant s'annonce comme le routeur par défaut du lien
+nous allons maintenant vérifier la table des routes de notre machine windows.
+\begin{figure}[H]
+    \centering
+    \includegraphics{images/attk/tableRoutes_windows}
+    \caption{Table des routes de la machine victime}
+    \label{fig:win_route_table}
+\end{figure}
+On constate que l'attaquant s'est insère comme passerelle de la victime.
+pour confirmer cela reprenons un tracert vers le routeur r4
+\begin{figure}[H]
+    \centering
+    \includegraphics{images/attk/tracert_b4_2}
+    \caption{Chemin vers b4 pendant l'attaque.}
+    \label{fig:tracert_b42}
+\end{figure}
+On peut voir clairement que la victime passe par l'attaquant pour atteindre le routeur.\\
+
+A présent nous allons essayer de capturer une information envoyée par la victime.
+Pour cela la victime fait un telnet sur le router R4 pour s'y connecter avec les paramètres suivants:\\
+password1:\textbf{cisco}\\
+password2:\textbf{class}
+\begin{figure}[H]
+    \centering
+    \includegraphics{images/attk/telnet_r4}
+    \caption{Connexion telnet au routeur.}
+    \label{fig:telnetr4}
+\end{figure}
+
+Une fois la connexion réussie, nous allons voir avec wireshark les paquets de connexion et y retrouver les paramètres de connexion.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/attk/c}
+    \includegraphics[width=1.0\textwidth]{images/attk/i}
+    \includegraphics[width=1.0\textwidth]{images/attk/s}
+    \includegraphics[width=1.0\textwidth]{images/attk/c2}
+    \includegraphics[width=1.0\textwidth]{images/attk/o}   
+    \caption{Premier paramètre de connexion au routeur R4: \textbf{c-i-s-c-o}}
+    \label{fig:param_conn_r4}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/attk/param2_c}
+    \includegraphics[width=1.0\textwidth]{images/attk/param2_l}
+    \includegraphics[width=1.0\textwidth]{images/attk/param2_a}
+    \includegraphics[width=1.0\textwidth]{images/attk/param2_s1}
+    \includegraphics[width=1.0\textwidth]{images/attk/param2_s2}
+    \caption{Second paramètre de connexion au routeur R4: \textbf{c-l-a-s-s}}
+    \label{fig:param_conn2}
+\end{figure}
+Les paramètres on été retrouves donc l'attaque a été un succès!
+
+%\subsection*{Mitigations}
+%Pour sécuriser ce réseau afin d'éviter ce genre d'attaque, deux mesures de sécurité peuvent être configurées.
+%\begin{itemize}
+%    \item le SEND
+%    \item le RaGuard
+%\end{itemize}
+

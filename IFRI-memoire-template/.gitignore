@@ -1,0 +1,37 @@
+# LaTeX auxiliary files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+
+# LaTeX output files
+*.pdf
+*.dvi
+*.ps
+
+# Additional LaTeX auxiliary files
+*.toc
+*.lof
+*.lot
+*.out
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.idx
+*.ilg
+*.ind
+*.acn
+*.acr
+*.alg
+*.glo
+*.glg
+*.gls
+*.ist
+*.loa
+*.maf
+*.mtc
+*.mtc0
+*.nlo
+*.ptc

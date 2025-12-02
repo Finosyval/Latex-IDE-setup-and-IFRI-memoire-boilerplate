@@ -1,0 +1,137 @@
+%--------------A VOTRE ATTENTION-------------%
+% Les étudiants en master qui disposent de plus de 3 chapitres dans leurs travaux peuvent en complèter
+% Les Membres doivent figurer dans la dernière version finale du mémoire après soutenance pour dépôt de mémoire
+
+\documentclass{ifri}
+\usepackage{titletoc}
+\setlength{\glsdescwidth}{0.65\textwidth}
+% \usepackage{lscape}
+
+\typeMemoire{Diplôme de Licence en Informatique}
+\optionFormation{Sécurité Informatique}
+\etudiant{Prenom \textbf{Nom}}
+\titreDuMemoire{Titre}%Implémention pour une meilleure sécurité dans les réseau LAN sous IPv6 // Proposition: Identification des vulnérabilités dans un reseau LAN IPv6 et mesures pour une meilleure sécurité.
+
+\dateSoutenance{-}
+%\promo{2\up{ème}}
+\anneeScolaire{2024-2025}
+
+
+%%maitre de mémoire
+\encadrants{Prenom \textbf{Nom}}
+
+%% Membres du Jury
+\jurys{%
+\begin{tabular}{llll}
+	Nom et prénoms du président & Grade & Entité & Président \\ 
+	Nom et prénoms de l'examinateur & Grade & Entité & Examinateur \\
+	Nom et prénoms du rapporteur & Grade & Entité & Rapporteur \\
+\end{tabular}	
+}
+
+
+\hypersetup{
+ pdftitle={--},
+ pdfauthor={--},
+ pdfsubject={--},
+ pdfkeywords={--} 
+ }
+
+\color{bookColor}
+
+%importation du glossaire
+\loadglsentries{glossaire_reduit}
+
+\begin{document}
+
+\pageDeGarde
+%\pageTitre
+
+\pagecolor{white}
+
+%% page vide
+%\thispagestyle{empty}\ \clearpage
+
+
+\selectlanguage{french}
+
+% sommaire
+\pagenumbering{roman}
+
+\setcounter{tocdepth}{0}
+\startlist{toc}
+\printlist{toc}{}{\chapter*{Sommaire}}
+\setcounter{tocdepth}{5}
+
+%% rdedicaces
+\include{0-dedicace}
+\newpage 
+
+%% remerciements
+\include{1-remerciements}
+\newpage 
+
+% Résume
+\include{2-resume}
+\newpage
+
+%liste des figures
+\listoffigures 
+\newpage
+
+%liste des tableaux
+\listoftables
+\newpage
+
+%liste des algo
+\selectlanguage{french}
+\listofalgorithmes
+\newpage
+
+% Les sigles et acronymes
+\setglossarystyle{altlist}
+\printglossary[title=Liste des acronymes, toctitle=Liste des acronymes, type=\acronymtype]
+\newpage
+
+% Le glossaire proprement dit
+%\setglossarystyle{super}
+%\printglossary[type=main]
+
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+%%introduction
+\include{3-introduction}
+%\lhead[]{} \rhead[]{} \chead[]{}
+\selectlanguage{french}
+\fancyhead[L]{\tiny \leftmark}
+\fancyhead[R]{\scriptsize \rightmark}
+\fancyfoot[C]{\thepage}
+
+\chapter{-}\label{chap:1}
+ \input{1-partie/1-fichier}
+ 
+ \chapter{-}\label{chap:2}
+ \input{2-partie/1-fichier}
+ 
+\chapter{--}\label{chap:3}
+ \input{3-partie/1-fichier}
+ 
+% \include{perspectives}
+%%conclusion
+\include{4-conclusion}
+% 
+\lhead[]{} \rhead[]{} \chead[]{}
+
+%%biblio
+\addcontentsline{toc}{chapter}{Bibliographie}
+\bibliographystyle{abbrv}
+\bibliography{biblio}
+
+
+%\include{annexe}
+
+\newpage
+\tableofcontents
+
+\end{document}          
