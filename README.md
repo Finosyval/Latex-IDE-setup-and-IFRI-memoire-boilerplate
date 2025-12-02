@@ -1,4 +1,4 @@
-# Guide complet pour configurer un environnement LaTeX dans VS Code pour la rédaction de mémoires IFRI
+# Guide complet pour configurer un environnement LaTeX dans votre IDE : cas de rédaction de mémoires IFRI
 
 .
 
